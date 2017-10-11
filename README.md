@@ -9,6 +9,19 @@ Self-Driving Car Engineer Nanodegree Program
 ## 1)	Driving at 50MPS
 Way points are given to the vehicle such that 50MPS is achieved with a acceleration of 1ms^2. 
 
+'        if(too_close)
+          	{
+          	  ref_vel -= 0.224;
+          	  
+          	}
+          	else{
+          	
+          	  if(ref_vel < 49)
+          	  {
+          	    ref_vel += 0.224;
+          	  }
+          	
+          	}'
 
 ## 2)	Sensor Fusion and tracking surrounding vehicles
 With sensor fusion data, go through all vehicles and find out vehicles moving along 3 lanes which are between 5m behind and 30m ahead of the ego car. 
