@@ -1,23 +1,23 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
    
-##The main purpose of the code is to 
+## The main purpose of the code is to 
 1)	Drive 50MPS when ever its possible
 2)	If there is a slow moving vehicle ahead, shift lane without colliding to other vehicles
 3)	If lane shift is not possible, slow down and avoid collusion.
 
-##1)	Driving at 50MPS
+## 1)	Driving at 50MPS
 Way points are given to the vehicle such that 50MPS is achieved with a acceleration of 1ms^2. 
 
 
-##2)	Sensor Fusion and tracking surrounding vehicles
+## 2)	Sensor Fusion and tracking surrounding vehicles
 With sensor fusion data, go through all vehicles and find out vehicles moving along 3 lanes which are between 5m behind and 30m ahead of the ego car. 
 a.	If a vehicle in the same lane, we soon we become close to that vehicle and too close flag is set.
 b.	If a vehicle in left or right of us, flags are set indicating there is a vehicle to our left or right.
 c.	If we are too close, and if there are is a vacant lane in left or right, shift to that lane
 d.	If we are too close and there are no vacant lanes, slow down
 
-##3)	Trajectory generation
+## 3)	Trajectory generation
 a.	Take two points from the previous path
 b.	Add 30,60 and 90m ahead points to that path
 c.	Shift the car reference angle to 0 degrees
