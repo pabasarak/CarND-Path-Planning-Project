@@ -8,7 +8,7 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## 1)	Driving at 50MPS
 Way points are given to the vehicle such that 50MPS is achieved with a acceleration of 1ms^2. 
-
+If the front car is too close, decelerate.  The deceleration is inversely proportional to the distance to the car.
 
           if(too_close)
           	{
