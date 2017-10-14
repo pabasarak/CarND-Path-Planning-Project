@@ -9,9 +9,10 @@ Self-Driving Car Engineer Nanodegree Program
 ## 1)	Driving at 50MPS
 Way points are given to the vehicle such that 50MPS is achieved with a acceleration of 1ms^2. 
 
+
           if(too_close)
           	{
-          	  ref_vel -= 0.224;
+          	  ref_vel -= 0.224*30/front_clearance;
           	  
           	}
           	else{
@@ -24,31 +25,37 @@ Way points are given to the vehicle such that 50MPS is achieved with a accelerat
           	}
 
 ## 2)	Sensor Fusion and tracking surrounding vehicles
-With sensor fusion data, go through all vehicles and find out vehicles moving along 3 lanes which are between 5m behind and 35m ahead of the ego car. 
+With sensor fusion data, go through all vehicles and find out vehicles moving along 3 lanes which are between 20m behind and 30m ahead of the ego car. 
 a.	If a vehicle in the same lane, we soon we become close to that vehicle and too close flag is set.
 b.	If a vehicle in left or right of us, flags are set indicating there is a vehicle to our left or right.
 c.	If we are too close, and if there are is a vacant lane in left or right, shift to that lane
 d.	If we are too close and there are no vacant lanes, slow down
 
-           if(check_car_s > (car_s-5) && (check_car_s - car_s)< 35)
+            if( (check_car_s - car_s)< 30)
           	    {
           	      //ref_vel = 29.0;
           	      
-          	      if(d <(2+4*lane + 2 )&& d > (2+4*lane-2))      // lane 1 -> 4< d <8
+          	      if(check_car_s > (car_s) && d <(2+4*lane + 2 )&& d > (2+4*lane-2))      // lane 1 -> 4< d <8
           	  	{
           	      	 too_close = true;
+				front_clearance = check_car_s - car_s;
+
           	      	}
-          	      	
-          	      	if((lane > 0) && (d <(2+4*lane - 2 ))&& (d > (2+4*lane-6))) //lane 1 -> 0<d<4
+          	      	//check side lane clearance
+          	      	if(check_car_s > (car_s-20) &&(lane > 0) && (d <(2+4*lane - 2 ))&& (d > (2+4*lane-6))) //lane 1 -> 0<d<4
           	  	{
           	      	 car_in_left = true;
           	      	}
           	      	
           	      	
-          	      	if((lane < 2) && (d <(2+4*lane + 6 ))&& (d > (2+4*lane+2))) // lane 1 -> 8<d<12
+          	      	if(check_car_s > (car_s-20) &&(lane < 2) && (d <(2+4*lane + 6 ))&& (d > (2+4*lane+2))) // lane 1 -> 8<d<12
           	  	{
           	      	 car_in_right = true;
           	      	}
+          	      	
+          	      
+          	      
+          	    
           	    }
                 
                 
