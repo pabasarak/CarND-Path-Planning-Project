@@ -249,6 +249,7 @@ int main() {
 		}
           	
           	bool too_close = false;
+                double front_clearance = 0.0;
           	bool car_in_left = false;
           	bool car_in_right = false;
           	for(int i=0; i< sensor_fusion.size(); i++)
@@ -264,22 +265,24 @@ int main() {
           	    
           	    check_car_s += (double) prev_size*0.02*check_speed;
           	    
-          	    if(check_car_s > (car_s-5) && (check_car_s - car_s)< 35)
+          	    if( (check_car_s - car_s)< 30)
           	    {
           	      //ref_vel = 29.0;
           	      
-          	      if(d <(2+4*lane + 2 )&& d > (2+4*lane-2))      // lane 1 -> 4< d <8
+          	      if(check_car_s > (car_s) && d <(2+4*lane + 2 )&& d > (2+4*lane-2))      // lane 1 -> 4< d <8
           	  	{
           	      	 too_close = true;
+				front_clearance = check_car_s - car_s;
+
           	      	}
-          	      	
-          	      	if((lane > 0) && (d <(2+4*lane - 2 ))&& (d > (2+4*lane-6))) //lane 1 -> 0<d<4
+          	      	//check side lane clearance
+          	      	if(check_car_s > (car_s-20) &&(lane > 0) && (d <(2+4*lane - 2 ))&& (d > (2+4*lane-6))) //lane 1 -> 0<d<4
           	  	{
           	      	 car_in_left = true;
           	      	}
           	      	
           	      	
-          	      	if((lane < 2) && (d <(2+4*lane + 6 ))&& (d > (2+4*lane+2))) // lane 1 -> 8<d<12
+          	      	if(check_car_s > (car_s-20) &&(lane < 2) && (d <(2+4*lane + 6 ))&& (d > (2+4*lane+2))) // lane 1 -> 8<d<12
           	  	{
           	      	 car_in_right = true;
           	      	}
@@ -313,7 +316,7 @@ int main() {
           	// if lane chage doent work, slow down
           	if(too_close)
           	{
-          	  ref_vel -= 0.224;
+          	  ref_vel -= 0.224*30/front_clearance;
           	  
           	}
           	else{
@@ -324,6 +327,9 @@ int main() {
           	  }
           	
           	}
+
+		// Debug
+		std::cout << "front:" << too_close << "left:"<< car_in_left<<"right:"<< car_in_right <<"lane:"<< lane <<std::endl;
           	vector<double> ptsx;
           	vector<double> ptsy;
           	
